@@ -1,0 +1,25 @@
+
+#?=和C中的三目运算符类似，如果没有定义PREFIX的话使用arm-linux-gnueabihf-,
+#如果定义了使用定义的值，可以make PREFIX=arm-linux-gnueabihf-赋值
+PREFIX?=arm-linux-
+
+#需要注意的是这里的CC，AR是makefile内置的变量
+#如果没有赋值，会默认为cc，ar
+CC=$(PREFIX)gcc
+LD=$(PREFIX)ld
+DUMP=$(PREFIX)objdump
+OBJCOPY=$(PREFIX)objcopy
+AR=$(PREFIX)ar
+READELF=$(PREFIX)readelf
+
+#-nostdinc:Do not search the standard system directories for header files
+#－fno－builtin:在C语言标准中，有些通用函数被定义为built-in function(内建函数)，像printf,strchr,memset等等，
+#这些函数不需要包含头文件中的声明，就可以编译连接该函数的。但有时候你想自己实现，就会出现冲突的提示。
+#解决办法：在编译是加上-fno-builtin或者-fno-builtin-FUNCTION 选项,你就可以自己实现这些函数而不冲突了。
+#例如编译时加上-fno-builtin-strchr ,就可以正常编译了。
+CC_FLAGS=-c -I./include
+LD_FLAGS=
+DUMP_FLAGS=-D -S
+
+PRODUCT = MBoot
+VERSION = v1.0
