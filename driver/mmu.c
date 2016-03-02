@@ -9,26 +9,29 @@
 #define DDR_PADDR		(DDR_BASE)
 
 #define TTB_TYPE		(0b10 << 0)//section 
-#define BUFFER_ENABLE	(0b1 << 3)
+#define BUFFER_ENABLE	(0b1 << 2)
 #define CAHCE_ENABLE	(0b1 << 3)
 #define SPECIAL			(0b1 << 4)
 #define DOMAIN			(0b11 << 5)
 #define AP				(0b11 << 10)
 
-#define GPIO_TTB_ITEM	(AP | DOMAIN | SPECIAL | ~CAHCE_ENABLE | ~BUFFER_ENABLE | TTB_TYPE)
+#define GPIO_TTB_ITEM	(AP | DOMAIN | SPECIAL | TTB_TYPE)
 #define DDR_TTB_ITEM	(AP | DOMAIN | SPECIAL | CAHCE_ENABLE | BUFFER_ENABLE | TTB_TYPE)
 
 //1、建立一级页表
 void create_TTB(void)
 {
-	unsigned char i = 0;
+	unsigned long ddr_vaddr = DDR_VADDR;
+	unsigned long ddr_paddr = ddr_vaddr;
 	
 	//map GPIO vaddr->paddr
 	*(volatile unsigned long*)(TTB_BASE + (GPIO_VADDR >> 20)) = (GPIO_PADDR & 0xfff00000) | GPIO_TTB_ITEM;
 	
-	for (i = 0; i < 64; i++)
+	while (ddr_paddr < 0x54000000)
 	{
-		*(volatile unsigned long*)(TTB_BASE + (DDR_VADDR + i*0x100000) >> 20) = (DDR_PADDR + i*0x100000) & 0xfff00000 | DDR_TTB_ITEM;
+		*(volatile unsigned long*)(TTB_BASE + (ddr_vaddr >> 20)) = (ddr_paddr & 0xfff00000) | DDR_TTB_ITEM;
+		ddr_vaddr += 0x100000;
+		ddr_paddr += 0x100000;
 	}
 }
 
