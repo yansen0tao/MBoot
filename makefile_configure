@@ -1,4 +1,6 @@
 
+#make PREFIX=arm-linux-gnueabihf-
+
 #?=和C中的三目运算符类似，如果没有定义PREFIX的话使用arm-linux-gnueabihf-,
 #如果定义了使用定义的值，可以make PREFIX=arm-linux-gnueabihf-赋值
 PREFIX?=arm-linux-

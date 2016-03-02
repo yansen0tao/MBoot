@@ -7,6 +7,7 @@ SRCS = main.c
 LIB_SRCS = driver/mem.S
 LIB_SRCS += driver/clock.S
 LIB_SRCS += driver/led.c
+LIB_SRCS += driver/mmu.c
 #LIB_SRCS += driver/mmu.c
 #LIB_SRCS += driver/led.c
 #LIB_SRCS += driver/button.c

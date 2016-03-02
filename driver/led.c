@@ -13,15 +13,15 @@ void temp_delay(unsigned long times)
 
 void led_init()
 {
-	Wr(GPMCON, 0x1111);
-	Wr(GPMDAT, 0b1111);
+	Wr(VGPMCON, 0x1111);
+	Wr(VGPMDAT, 0b1111);
 }
 
 void led_on(int n)
 {
-	Wr(GPMDAT, ~(0x01 << n) & 0xF);
+	Wr(VGPMDAT, ~(0x01 << n) & 0xF);
 	temp_delay(1);
-	Wr(GPMDAT, 0xF);
+	Wr(VGPMDAT, 0xF);
 }
 
 void marquee(void) 
