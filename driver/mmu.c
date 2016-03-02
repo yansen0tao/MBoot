@@ -24,11 +24,11 @@ void create_TTB(void)
 	unsigned char i = 0;
 	
 	//map GPIO vaddr->paddr
-	*(volatile unsigned long*)(TTB_BASE + (GPIO_VADDR >> 20)) = (GPIO_PADDR & 0xfff) | GPIO_TTB_ITEM;
+	*(volatile unsigned long*)(TTB_BASE + (GPIO_VADDR >> 20)) = (GPIO_PADDR & 0xfff00000) | GPIO_TTB_ITEM;
 	
 	for (i = 0; i < 64; i++)
 	{
-		*(volatile unsigned long*)(TTB_BASE + (DDR_VADDR >> 20) + i) = (DDR_PADDR + i*0x100000) & 0xfff | DDR_TTB_ITEM;
+		*(volatile unsigned long*)(TTB_BASE + (DDR_VADDR + i*0x100000) >> 20) = (DDR_PADDR + i*0x100000) & 0xfff00000 | DDR_TTB_ITEM;
 	}
 }
 
