@@ -8,9 +8,8 @@ LIB_SRCS = driver/mem.S
 LIB_SRCS += driver/clock.S
 LIB_SRCS += driver/led.c
 LIB_SRCS += driver/mmu.c
-#LIB_SRCS += driver/mmu.c
-#LIB_SRCS += driver/led.c
-#LIB_SRCS += driver/button.c
+LIB_SRCS += driver/button.c
+LIB_SRCS += driver/interrupt.c
 
 SOBJS	= $(SSRCS:%.S=%.o$(SUFFIX))
 OBJS	= $(SRCS:%.c=%.o$(SUFFIX))

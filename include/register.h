@@ -16,6 +16,8 @@
 #define VIC0INTENABLE	(0x71200010)
 #define VIC1INTENABLE	(0x71300010)
 
+#define VIC0VECTADDR	(0x71200100)
+
 #define Wr(addr, data) 	(*((volatile unsigned long *)(addr))=(data))
 #define Rd(addr) 		(*((volatile unsigned long *)(addr)))
 

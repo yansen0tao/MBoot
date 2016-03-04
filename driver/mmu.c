@@ -1,5 +1,6 @@
 
 #include <register.h>
+#include <map.h>
 
 #define TTB_BASE		(DDR_BASE)
 #define GPIO_VADDR		(0xa0008000)
