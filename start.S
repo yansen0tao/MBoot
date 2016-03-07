@@ -130,7 +130,12 @@ copy_loop:
 	mov pc, lr
 
 init_stack:
+	msr cpsr_c, #0xd2
+	ldr sp, =0x53c00000
+	
+	msr cpsr_c, #0xd3
 	ldr sp, =0x54000000
+	
 	mov pc ,lr
 
 clean_bss:

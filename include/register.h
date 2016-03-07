@@ -20,6 +20,8 @@
 
 #define EINT0PEND		(0x7F008924)
 
+#define VIC0ADDRESS		(0x71200F00)
+
 #define Wr(addr, data) 	(*((volatile unsigned long *)(addr))=(data))
 #define Rd(addr) 		(*((volatile unsigned long *)(addr)))
 

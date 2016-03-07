@@ -7,8 +7,6 @@
 void init_button(void)
 {
 //把GPIO_N的引脚配置为外部中断功能
-	Wr(GPNCON, Rd(GPNCON) & MASK_BITS | INT_ENABLE);
-	
-	Wr(VIC0VECTADDR, process_irq);
+	Wr(GPNCON, MASK_BITS | INT_ENABLE);
 }
 
