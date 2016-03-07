@@ -18,6 +18,8 @@
 
 #define VIC0VECTADDR	(0x71200100)
 
+#define EINT0PEND		(0x7F008924)
+
 #define Wr(addr, data) 	(*((volatile unsigned long *)(addr))=(data))
 #define Rd(addr) 		(*((volatile unsigned long *)(addr)))
 

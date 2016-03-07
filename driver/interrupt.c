@@ -12,7 +12,7 @@ void init_irq()
 	
 	//开启中断控制器EINT0-5中断
 	Wr(VIC0INTENABLE, 0x3f);
-	
+		
 	//打开向量中断(默认兼容2440，不打开，210默认打开)，设置CPSR打开IRQ总中断
 	__asm__(
 		"mrc p15, 0, r0, c1, c0, 0\n"
@@ -29,7 +29,8 @@ void init_irq()
 
 void process_irq()
 {
-	//1、保存环境
+	//1、保存环境，arm三级流水线机制导致有一条译码的指令
+	//没有机会执行，因此调整链接地址，使得该译码指令可以被执行
 	__asm__(
 		"sub lr, lr, #4\n"
 		"ldmfd sp!, {r0-r15, lr}"
@@ -37,6 +38,9 @@ void process_irq()
 	//2、中断处理
 	
 	//3、清除中断
-	
+	Wr(Rd(EINT0PEND) | 0x3f);
 	//4、恢复环境
+	__asm__(
+		"stmfd sp!, {r0-r15, pc}"
+	);
 }
